@@ -35,7 +35,7 @@ graph LR
    - **Region**: `Oregon (US West)` or nearest region
    - **Branch**: `main`
    - **Root Directory**: `backend`
-   - **Build Command**: `npm install && npm run build`
+   - **Build Command**: `npm install --include=dev && npm run build`
    - **Start Command**: `npm start`
    - **Plan Type**: `Free`
 3. Add Environment Variables (under **Advanced** / **Environment Variables**):
@@ -97,7 +97,7 @@ Test the live endpoints in your browser or terminal:
 
 | Platform | Component | Root Dir | Build Command | Start Command | Output Dir | Key Env Vars |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Render** | Backend API | `backend` | `npm install && npm run build` | `npm start` | `dist` | `NODE_ENV=production`, `PORT=10000` |
+| **Render** | Backend API | `backend` | `npm install --include=dev && npm run build` | `npm start` | `dist` | `NODE_ENV=production`, `PORT=10000` |
 | **Vercel** | Frontend Web | `frontend` | `npm run build` | — | `dist` | `VITE_API_URL=https://<your-render-url>` |
 
 ---
