@@ -1,0 +1,16 @@
+{
+  "name": "greencore-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GreenCore AI - Campus Sustainability Digital Twin & Action Engine (Full Stack)",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "start:backend": "npm --prefix backend start",
+    "preview:frontend": "npm --prefix frontend run preview -- --port 5173 --host"
+  }
+}
