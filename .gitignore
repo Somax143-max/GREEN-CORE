@@ -30,5 +30,9 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
-
+# Database
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3

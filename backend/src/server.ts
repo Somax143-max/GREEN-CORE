@@ -2,8 +2,12 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import campusRouter from './routes/campus.js';
+import { initDatabase } from './db/database.js';
 
 dotenv.config();
+
+// Initialize SQLite database schema and seed records
+initDatabase();
 
 const app = express();
 const PORT = process.env.PORT || 5000;

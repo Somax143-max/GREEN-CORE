@@ -43,6 +43,36 @@ export const api = {
     return res.json();
   },
 
+  // History (12 Months MoM & YoY)
+  async getHistory() {
+    const res = await fetch(`${API_BASE_URL}/api/campus/history`);
+    return res.json();
+  },
+
+  // Benchmarking
+  async getBenchmarking() {
+    const res = await fetch(`${API_BASE_URL}/api/campus/benchmark`);
+    return res.json();
+  },
+
+  // Campus Memory
+  async getCampusMemory() {
+    const res = await fetch(`${API_BASE_URL}/api/campus/memory`);
+    return res.json();
+  },
+
+  // Cryptographic Ledger Verification
+  async verifyAuditLedger() {
+    const res = await fetch(`${API_BASE_URL}/api/campus/audit/verify-ledger`);
+    return res.json();
+  },
+
+  // Metric Provenance & Data Lineage
+  async getMetricProvenance(metricId: string) {
+    const res = await fetch(`${API_BASE_URL}/api/campus/provenance/${metricId}`);
+    return res.json();
+  },
+
   // Manual entry submission
   async submitManualEntry(payload: {
     nodeId: string;
@@ -60,36 +90,30 @@ export const api = {
     return res.json();
   },
 
-  // Killer demo: Inject anomaly
-  async injectAnomaly() {
-    const res = await fetch(`${API_BASE_URL}/api/campus/anomaly/inject`, {
-      method: 'POST',
-    });
-    return res.json();
-  },
-
-  // Killer demo: Resolve anomaly
-  async resolveAnomaly() {
-    const res = await fetch(`${API_BASE_URL}/api/campus/anomaly/resolve`, {
-      method: 'POST',
-    });
-    return res.json();
-  },
-
-  // Killer demo: Reset demo
-  async resetDemo() {
-    const res = await fetch(`${API_BASE_URL}/api/campus/anomaly/reset`, {
-      method: 'POST',
-    });
-    return res.json();
-  },
-
-  // Simulation
-  async runSimulation(selectedIds: string[]) {
-    const res = await fetch(`${API_BASE_URL}/api/campus/simulate`, {
+  // Anomaly toggle
+  async toggleAnomaly(active?: boolean) {
+    const res = await fetch(`${API_BASE_URL}/api/campus/anomaly/toggle`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ selectedIds }),
+      body: JSON.stringify({ active }),
+    });
+    return res.json();
+  },
+
+  // Verify Action Outcome (Closed-Loop)
+  async verifyActionOutcome(actionId: string) {
+    const res = await fetch(`${API_BASE_URL}/api/campus/actions/${actionId}/verify-outcome`, {
+      method: 'POST',
+    });
+    return res.json();
+  },
+
+  // Create Operational Action / Work Order
+  async createAction(payload: any) {
+    const res = await fetch(`${API_BASE_URL}/api/campus/actions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
     return res.json();
   },
@@ -104,11 +128,26 @@ export const api = {
     return res.json();
   },
 
-  // Missions join
-  async joinMission(id: string) {
-    const res = await fetch(`${API_BASE_URL}/api/campus/missions/${id}/join`, {
+  // Mode Switch
+  async setMode(mode: 'manual' | 'hybrid' | 'iot') {
+    const res = await fetch(`${API_BASE_URL}/api/campus/mode`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode }),
+    });
+    return res.json();
+  },
+
+  // Join Green Mission
+  async joinMission(missionId: string) {
+    const res = await fetch(`${API_BASE_URL}/api/campus/missions/${missionId}/join`, {
       method: 'POST',
     });
     return res.json();
-  }
+  },
+
+  // Aliases for simulation / demo toggles
+  injectAnomaly: async () => api.toggleAnomaly(true),
+  resolveAnomaly: async () => api.toggleAnomaly(false),
+  resetDemo: async () => api.toggleAnomaly(false),
 };

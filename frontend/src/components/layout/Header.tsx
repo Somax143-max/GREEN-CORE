@@ -14,17 +14,19 @@ import {
   CheckCircle2,
   Trophy,
   Terminal,
-  Award
+  Award,
+  Sliders
 } from 'lucide-react';
 import { useCampus } from '../../context/CampusContext';
 import { CampusMode } from '../../types';
+import { api } from '../../services/api';
 
 interface HeaderProps {
   onOpenManualEntry: () => void;
   onOpenKillerDemo: () => void;
   onOpenPitchMode: () => void;
   onOpenTelemetry: () => void;
-  onOpenAntiGaming: () => void;
+  onOpenMethodology: () => void;
   onOpenCertificate: () => void;
 }
 
@@ -33,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenKillerDemo,
   onOpenPitchMode,
   onOpenTelemetry,
-  onOpenAntiGaming,
+  onOpenMethodology,
   onOpenCertificate
 }) => {
   const { 
@@ -51,6 +53,9 @@ export const Header: React.FC<HeaderProps> = ({
   const handleModeChange = (newMode: CampusMode) => {
     setMode(newMode);
     setShowModeBanner(true);
+    if (isBackendConnected) {
+      api.setMode(newMode).catch(() => {});
+    }
   };
 
   return (
@@ -222,12 +227,12 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={onOpenAntiGaming}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 hover:text-white border border-rose-800/80 font-bold text-[11px] transition-all hover:scale-105 active:scale-95 cursor-pointer"
-            title="Test 4 Real Adversarial Attacks against GREENScore Engine"
+            onClick={onOpenMethodology}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-cyan-800/80 font-bold text-[11px] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            title="Inspect Audited Mathematical Formulas and Adjust Weights"
           >
-            <ShieldAlert className="w-3 h-3 text-rose-400" />
-            <span>Anti-Cheat Sandbox</span>
+            <Sliders className="w-3 h-3 text-cyan-400" />
+            <span>Score Methodology</span>
           </button>
 
           <button

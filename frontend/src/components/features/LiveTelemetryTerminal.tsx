@@ -127,13 +127,13 @@ export const LiveTelemetryTerminal: React.FC<LiveTelemetryTerminalProps> = ({ is
                 <h3 className="text-sm font-black text-white tracking-wide">
                   Cyber-Physical Telemetry & Ingestion Inspector
                 </h3>
-                <span className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                  GATEWAY ACTIVE
+                <span className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-800 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  ● DEMO DATA (SIMULATION MODE)
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">
-                Live simulated packet frames from Schneider Modbus TCP meters, LoRaWAN pulse counters, and optical bins
+                Packets formatted according to official <strong>Modbus-TCP (IEC 61158)</strong> and <strong>LoRaWAN IN865</strong> payload specs for GCEK campus evaluation.
               </p>
             </div>
           </div>

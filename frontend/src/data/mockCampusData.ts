@@ -370,7 +370,7 @@ export const INITIAL_AUDIT_LOGS: AuditRecord[] = [
     reason: 'Sub-meter dial calibration adjustment after physical verification with telemetry',
     source: 'Smart Meter API',
     verificationStatus: 'Verified',
-    checksum: 'sha256:8f4b23a9c7d1e03b44f...'
+    checksum: 'sha256:4f7f2c27157a13e1c13b9fbf2535894ca4af69e45f44da6313fec8fc5009b61e'
   },
   {
     id: 'AUD-2026-0925-02',
@@ -384,7 +384,7 @@ export const INITIAL_AUDIT_LOGS: AuditRecord[] = [
     reason: 'Weekly cafeteria weighbridge manifest reconciliation',
     source: 'Manual Log',
     verificationStatus: 'Verified',
-    checksum: 'sha256:3a1e90b4d58fc12a9e...'
+    checksum: 'sha256:79fc20d19930db67bf7e08d0792f532c288e1de95ed164388431efcd0c02fc75'
   },
   {
     id: 'AUD-2026-0920-03',
@@ -398,7 +398,7 @@ export const INITIAL_AUDIT_LOGS: AuditRecord[] = [
     reason: 'Automated 15-minute telemetry sync from Delta Inverter #02',
     source: 'Smart Meter API',
     verificationStatus: 'Verified',
-    checksum: 'sha256:19b48c772ef1089a...'
+    checksum: 'sha256:86b0b3f75929eeabcb4ba4ca4ec0d497b07c6f97631fd92322fcc5971da61cb8'
   },
   {
     id: 'AUD-2026-0918-04',
@@ -412,7 +412,7 @@ export const INITIAL_AUDIT_LOGS: AuditRecord[] = [
     reason: 'Entered single floor reading instead of total main breaker',
     source: 'Manual Log',
     verificationStatus: 'Flagged',
-    checksum: 'sha256:e89a32c7bf1450a8...'
+    checksum: 'sha256:a6e1bc9765bbddba423616d58261341674c66c66c1a6be9ef9be9f15f5c03faf'
   }
 ];
 

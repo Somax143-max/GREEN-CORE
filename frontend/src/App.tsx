@@ -15,6 +15,7 @@ import { GreenLeague } from './components/pages/GreenLeague';
 import { AuditCenter } from './components/pages/AuditCenter';
 import { ManualEntryModal } from './components/modals/ManualEntryModal';
 import { NodeDetailModal } from './components/modals/NodeDetailModal';
+import { ScoreMethodologyModal } from './components/modals/ScoreMethodologyModal';
 import { LiveTelemetryTerminal } from './components/features/LiveTelemetryTerminal';
 import { JudgePitchMode } from './components/features/JudgePitchMode';
 import { AntiGamingSandbox } from './components/features/AntiGamingSandbox';
@@ -31,7 +32,7 @@ const MainApp: React.FC = () => {
   // Winner feature modal states
   const [isTelemetryOpen, setIsTelemetryOpen] = useState<boolean>(false);
   const [isPitchOpen, setIsPitchOpen] = useState<boolean>(false);
-  const [isAntiGamingOpen, setIsAntiGamingOpen] = useState<boolean>(false);
+  const [isMethodologyOpen, setIsMethodologyOpen] = useState<boolean>(false);
   const [isCertificateOpen, setIsCertificateOpen] = useState<boolean>(false);
 
   const handleSelectNode = (nodeId: string) => {
@@ -49,7 +50,7 @@ const MainApp: React.FC = () => {
         onOpenKillerDemo={() => setIsKillerDemoBannerOpen(!isKillerDemoBannerOpen)}
         onOpenPitchMode={() => setIsPitchOpen(true)}
         onOpenTelemetry={() => setIsTelemetryOpen(true)}
-        onOpenAntiGaming={() => setIsAntiGamingOpen(true)}
+        onOpenMethodology={() => setIsMethodologyOpen(true)}
         onOpenCertificate={() => setIsCertificateOpen(true)}
       />
 
@@ -108,9 +109,9 @@ const MainApp: React.FC = () => {
         onClose={() => setIsPitchOpen(false)}
         onNavigateTab={tab => setActiveTab(tab)}
       />
-      <AntiGamingSandbox
-        isOpen={isAntiGamingOpen}
-        onClose={() => setIsAntiGamingOpen(false)}
+      <ScoreMethodologyModal
+        isOpen={isMethodologyOpen}
+        onClose={() => setIsMethodologyOpen(false)}
       />
       <SustainabilityCertificateModal
         isOpen={isCertificateOpen}

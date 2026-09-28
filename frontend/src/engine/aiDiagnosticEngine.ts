@@ -1,5 +1,4 @@
-import { evaluateCampusWaterAnomaly } from './anomalyEngine.js';
-import { db } from '../db/database.js';
+import { evaluateCampusWaterAnomaly } from './anomalyEngine';
 
 export interface StructuredDiagnosticContext {
   compositeScore: number;
@@ -36,7 +35,6 @@ export interface AIQueryResponse {
 export function processAIQuery(query: string, isWaterAnomalyActive: boolean): AIQueryResponse {
   const q = query.toLowerCase().trim();
 
-  // Run real anomaly evaluation pipeline
   const anomalyEval = evaluateCampusWaterAnomaly(
     isWaterAnomalyActive ? 188.0 : 142.0,
     isWaterAnomalyActive ? 3200.0 : 140.0,
@@ -44,7 +42,6 @@ export function processAIQuery(query: string, isWaterAnomalyActive: boolean): AI
     isWaterAnomalyActive ? 11 : 0
   );
 
-  // Assemble structured context packet
   const contextPacket: StructuredDiagnosticContext = {
     compositeScore: isWaterAnomalyActive ? 78 : 82,
     previousScore: 82,
@@ -62,7 +59,6 @@ export function processAIQuery(query: string, isWaterAnomalyActive: boolean): AI
     linkedActionId: isWaterAnomalyActive ? 'WO-409' : 'WO-410'
   };
 
-  // 1. Intent Detection
   if (q.includes('why') || q.includes('fall') || q.includes('drop') || q.includes('decrease') || q.includes('change')) {
     if (isWaterAnomalyActive) {
       return {

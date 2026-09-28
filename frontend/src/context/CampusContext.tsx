@@ -21,6 +21,7 @@ import {
 import { calculateCampusScores, ScoreBreakdown } from '../engine/scoringEngine';
 import { validateSustainabilitySubmission, ValidationResult } from '../engine/dataQualityEngine';
 import { api } from '../services/api';
+import { computeBrowserSha256 } from '../services/crypto';
 import confetti from 'canvas-confetti';
 
 interface CampusContextType {
@@ -85,9 +86,19 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   // Check backend health on mount
   useEffect(() => {
     let mounted = true;
-    api.checkHealth().then(res => {
+    api.checkHealth().then(async res => {
       if (mounted) {
         setIsBackendConnected(res.online);
+        if (res.online) {
+          try {
+            const nodeRes = await api.getNodes();
+            if (nodeRes && nodeRes.nodes && nodeRes.nodes.length > 0) {
+              setNodes(nodeRes.nodes);
+            }
+          } catch (e) {
+            console.warn('Backend node fetch failed, utilizing fallback store:', e);
+          }
+        }
       }
     });
     return () => { mounted = false; };
@@ -179,7 +190,7 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       reason: 'Sustained night-flow leak pattern flagged by ML Isolation Forest',
       source: 'Smart Meter API',
       verificationStatus: 'Flagged',
-      checksum: 'sha256:49c2d1b8e...'
+      checksum: 'sha256:aac02e3696f1ce201f071cc784e471a758d305eb80ca0d71b4be386163e9f7c7'
     };
     setAuditLogs(prev => [newLog, ...prev]);
   };
@@ -227,7 +238,7 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       reason: 'Underground feeder valve replaced & float valve recalibrated. Physical leak sealed.',
       source: 'Smart Meter API',
       verificationStatus: 'Verified',
-      checksum: 'sha256:77f981ca3...'
+      checksum: 'sha256:01607edddcd522394fcb2706bd2fa4c4e89b1a1e9782aa0fd948a00ef61f63b8'
     };
     setAuditLogs(prev => [verificationLog, ...prev]);
 
@@ -281,9 +292,10 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       api.submitManualEntry(params).catch(() => {});
     }
 
-    // Create Audit Record
+    const logId = `AUD-${Date.now().toString().slice(-6)}`;
+    // Create Audit Record with deterministic initial hash and asynchronous Web Crypto digest
     const newLog: AuditRecord = {
-      id: `AUD-${Date.now().toString().slice(-6)}`,
+      id: logId,
       timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
       actor: params.actor || 'Facility Officer',
       nodeId: params.nodeId,
@@ -294,10 +306,17 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       reason: params.reason || 'Periodic manual meter logging',
       source: 'Manual Log',
       verificationStatus: validation.status,
-      checksum: `sha256:${Math.random().toString(36).substring(2, 12)}...`
+      checksum: `sha256:calculating...`
     };
 
     setAuditLogs(prev => [newLog, ...prev]);
+
+    // Asynchronously compute genuine Web Crypto SHA-256
+    computeBrowserSha256(`${logId}|${params.nodeId}|${params.category}|${params.value}|${baseline}|${Date.now()}`)
+      .then(hex => {
+        setAuditLogs(prev => prev.map(l => l.id === logId ? { ...l, checksum: `sha256:${hex}` } : l));
+      })
+      .catch(() => {});
 
     if (validation.isValid && validation.scoreImpactAllowed && node) {
       setNodes(prev => prev.map(n => {

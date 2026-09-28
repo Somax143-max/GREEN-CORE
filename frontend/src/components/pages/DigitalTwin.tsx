@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   Building2, 
   MapPin, 
@@ -29,24 +29,33 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
   const { nodes, anomalies } = useCampus();
   const [filterType, setFilterType] = useState<NodeType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedNode, setSelectedNode] = useState<CampusNode>(nodes[4]); // Defaults to Hostel B (Indravati)
+  const [selectedId, setSelectedId] = useState<string>('hostel_h2');
+
+  const selectedNode = useMemo(() => {
+    return nodes.find(n => n.id === selectedId) || nodes[0];
+  }, [nodes, selectedId]);
+
+  const academicCount = useMemo(() => nodes.filter(n => n.type === 'academic').length, [nodes]);
+  const hostelCount = useMemo(() => nodes.filter(n => n.type === 'hostel').length, [nodes]);
+  const facilityCount = useMemo(() => nodes.filter(n => n.type === 'facility').length, [nodes]);
 
   // Compute filtered nodes based on active category & search query
-  const filteredNodes = nodes.filter(node => {
-    const matchesType = filterType === 'all' || node.type === filterType;
-    const matchesSearch = node.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          node.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          node.buildingType.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesType && matchesSearch;
-  });
+  const filteredNodes = useMemo(() => {
+    return nodes.filter(node => {
+      const matchesType = filterType === 'all' || node.type === filterType;
+      const matchesSearch = node.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            node.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            node.buildingType.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesType && matchesSearch;
+    });
+  }, [nodes, filterType, searchQuery]);
 
   const handleFilterClick = (type: NodeType | 'all') => {
     setFilterType(type);
     const matching = nodes.filter(n => type === 'all' || n.type === type);
     if (matching.length > 0) {
-      // Auto-select the first matching node if current selectedNode isn't in matching
-      if (!matching.some(m => m.id === selectedNode.id)) {
-        setSelectedNode(matching[0]);
+      if (!matching.some(m => m.id === selectedId)) {
+        setSelectedId(matching[0].id);
         onSelectNode(matching[0].id);
       }
     }
@@ -56,7 +65,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
     setFilterType('hostel');
     const hostelB = nodes.find(n => n.id === 'hostel_h2');
     if (hostelB) {
-      setSelectedNode(hostelB);
+      setSelectedId(hostelB.id);
       onSelectNode(hostelB.id);
     }
   };
@@ -105,7 +114,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${filterType === 'all' ? 'bg-white animate-pulse' : 'bg-slate-600'}`} />
-              <span>All (9)</span>
+              <span>All ({nodes.length})</span>
             </button>
 
             <button
@@ -117,7 +126,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${filterType === 'academic' ? 'bg-white animate-pulse' : 'bg-slate-600'}`} />
-              <span>Academic (3)</span>
+              <span>Academic ({academicCount})</span>
             </button>
 
             <button
@@ -129,7 +138,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${filterType === 'hostel' ? 'bg-white animate-pulse' : 'bg-slate-600'}`} />
-              <span>Hostels (3)</span>
+              <span>Hostels ({hostelCount})</span>
             </button>
 
             <button
@@ -141,7 +150,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${filterType === 'facility' ? 'bg-white animate-pulse' : 'bg-slate-600'}`} />
-              <span>Facilities (3)</span>
+              <span>Facilities ({facilityCount})</span>
             </button>
           </div>
 
@@ -229,7 +238,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
                   <div
                     key={node.id}
                     onClick={() => {
-                      setSelectedNode(node);
+                      setSelectedId(node.id);
                       onSelectNode(node.id);
                     }}
                     style={{
@@ -309,7 +318,7 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
                     <div
                       key={node.id}
                       onClick={() => {
-                        setSelectedNode(node);
+                        setSelectedId(node.id);
                         onSelectNode(node.id);
                       }}
                       className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
