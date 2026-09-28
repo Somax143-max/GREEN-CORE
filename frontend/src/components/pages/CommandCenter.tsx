@@ -129,7 +129,49 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
 
   return (
     <div className="space-y-6">
-      {/* 🌟 HUMAN-FRIENDLY EXECUTIVE STORYLINE: WHERE, WHAT, WHY & HOW */}
+      {/* 🌟 FRIENDLY WELCOME & QUICK START BANNER */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-900/90 to-emerald-950/40 rounded-2xl p-5 border border-slate-800 shadow-xl space-y-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-widest font-bold flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                Welcome to GREENCORE
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                GCEK Campus
+              </span>
+            </div>
+            <h2 className="text-xl font-black text-white mt-1">
+              Campus Sustainability at a Glance
+            </h2>
+            <p className="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+              GREENCORE monitors electricity, water pipes, cafeteria composting, and travel across 9 campus buildings in real time. 
+              We pinpoint hidden resource leaks, simulate repair savings, and generate audit-proof proof for NAAC Grade A accreditation.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
+            <button
+              onClick={() => onNavigateTab('twin')}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-cyan-800/80 text-xs font-bold transition-all hover:scale-105 cursor-pointer"
+            >
+              <Building2 className="w-3.5 h-3.5" />
+              <span>Explore 9 Buildings</span>
+            </button>
+
+            <button
+              onClick={() => onNavigateTab('ai')}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold transition-all hover:scale-105 shadow-md shadow-emerald-950/40 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Ask AI Assistant</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 🌟 3-STEP STORYLINE: WHERE, WHAT, WHY & HOW */}
       <div className="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-950 rounded-2xl p-5 border border-slate-700/80 shadow-2xl space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800">
           <div className="flex items-center gap-2.5">
@@ -138,17 +180,17 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
             </span>
             <div>
               <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">
-                Campus Executive Summary • GCE Kalahandi
+                Executive Action Board • GCE Kalahandi
               </span>
               <h2 className="text-base font-extrabold text-white">
-                Where We Stand, What Needs Attention, and How to Fix It
+                1. Where We Stand • 2. Where The Problem Is • 3. How We Fix It
               </h2>
             </div>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono font-medium">
-              3,730 People • 9 Buildings
+              3,730 Students &amp; Staff • 9 Buildings
             </span>
             <button
               onClick={() => onNavigateTab('twin')}
@@ -182,7 +224,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
               <p className="text-slate-300 mt-2 leading-relaxed">
                 Campus is outperforming in <strong>Energy (100)</strong> and <strong>Waste (74)</strong>. 
                 {isAnomalyActive 
-                  ? ' Water is currently suffering a -4.8 point drag from an active leak.' 
+                  ? ' Water is currently suffering a -4.8 point drag from an active leak in Hostel B.' 
                   : ' All 4 pillars are operating within healthy target bounds.'}
               </p>
             </div>
@@ -258,6 +300,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
           </div>
         </div>
       </div>
+
 
       {/* Main Grid: Defensible GreenScore Card + 4 Pillar Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">

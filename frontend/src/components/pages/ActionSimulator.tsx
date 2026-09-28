@@ -143,14 +143,82 @@ export const ActionSimulator: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left: Interactive Action Levers (7 cols) */}
         <div className="lg:col-span-7 bg-slate-900/90 rounded-2xl p-5 border border-slate-800 shadow-xl space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-cyan-400" />
-              Toggle Campus Sustainability Interventions
-            </h3>
-            <span className="text-xs text-slate-400 font-mono">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-cyan-400" />
+                Select Campus Green Projects to Simulate
+              </h3>
+              <p className="text-xs text-slate-400">
+                Click any project or use the 1-click packages below to model score lifts and budget ROI
+              </p>
+            </div>
+            <span className="text-xs text-slate-400 font-mono self-start sm:self-auto">
               {selectedOptions.length} of {simulationOptions.length} Active
             </span>
+          </div>
+
+          {/* 1-Click Preset Scenario Buttons */}
+          <div className="flex items-center gap-1.5 flex-wrap p-2 bg-slate-950 rounded-xl border border-slate-800 text-xs">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase mr-1">
+              Quick Packages:
+            </span>
+
+            <button
+              onClick={() => {
+                simulationOptions.forEach(opt => {
+                  const shouldBeSelected = opt.id === 'leak_repair' || opt.id === 'led_retrofit';
+                  if ((opt.selected && !shouldBeSelected) || (!opt.selected && shouldBeSelected)) {
+                    toggleSimulationOption(opt.id);
+                  }
+                });
+              }}
+              className="px-2.5 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold transition-all cursor-pointer"
+            >
+              ⚡ Quick Wins (&lt; ₹50k)
+            </button>
+
+            <button
+              onClick={() => {
+                simulationOptions.forEach(opt => {
+                  const shouldBeSelected = opt.id === 'solar_expand' || opt.id === 'led_retrofit';
+                  if ((opt.selected && !shouldBeSelected) || (!opt.selected && shouldBeSelected)) {
+                    toggleSimulationOption(opt.id);
+                  }
+                });
+              }}
+              className="px-2.5 py-1 rounded-lg bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold transition-all cursor-pointer"
+            >
+              ☀️ Solar Overhaul
+            </button>
+
+            <button
+              onClick={() => {
+                simulationOptions.forEach(opt => {
+                  const shouldBeSelected = opt.id === 'composter_scale' || opt.id === 'leak_repair';
+                  if ((opt.selected && !shouldBeSelected) || (!opt.selected && shouldBeSelected)) {
+                    toggleSimulationOption(opt.id);
+                  }
+                });
+              }}
+              className="px-2.5 py-1 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold transition-all cursor-pointer"
+            >
+              🌿 Zero-Waste Campus
+            </button>
+
+            <button
+              onClick={() => {
+                const allSelected = simulationOptions.every(o => o.selected);
+                simulationOptions.forEach(opt => {
+                  if (allSelected ? opt.selected : !opt.selected) {
+                    toggleSimulationOption(opt.id);
+                  }
+                });
+              }}
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-bold transition-all cursor-pointer ml-auto"
+            >
+              {simulationOptions.every(o => o.selected) ? 'Deselect All' : 'Select All'}
+            </button>
           </div>
 
           <div className="space-y-3">

@@ -102,24 +102,24 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
   const currentStepInfo = steps[killerDemoStep - 1] || steps[0];
 
   return (
-    <div className="bg-slate-900/95 border-b border-cyan-900/40 px-4 py-2.5 shadow-lg">
+    <div className="bg-slate-900/95 border-b border-cyan-900/40 px-4 py-2.5 shadow-lg relative transition-all">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Header left */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center p-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-sm">
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center justify-center p-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-sm shrink-0">
               <Sparkles className="w-4 h-4 text-cyan-200 animate-spin" style={{ animationDuration: '6s' }} />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-black uppercase tracking-wider text-cyan-400">
-                  HACKVERSE '26 Killer Demo Storyline
+                  Interactive Guided Tour
                 </span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-mono">
-                  Step {killerDemoStep} / 8
+                <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-mono font-bold">
+                  Step {killerDemoStep} of 8
                 </span>
               </div>
-              <p className="text-xs text-slate-300 font-medium">
+              <p className="text-xs text-slate-300 font-medium mt-0.5">
                 <strong className="text-white">{currentStepInfo.title}:</strong> {currentStepInfo.desc}
               </p>
             </div>
@@ -134,10 +134,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   injectHostelBWaterAnomaly();
                   onNavigateTab('water');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-md shadow-rose-950/50 transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-md shadow-rose-950/50 transition-all hover:scale-105 cursor-pointer"
               >
                 <Droplets className="w-3.5 h-3.5" />
-                <span>Trigger Step 2: Inject Hostel B Leak</span>
+                <span>Next: Inject Hostel B Leak (Step 2)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -148,10 +148,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   setKillerDemoStep(3);
                   onNavigateTab('command');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all hover:scale-105 cursor-pointer"
               >
                 <AlertOctagon className="w-3.5 h-3.5" />
-                <span>Next: Inspect Detected Anomaly</span>
+                <span>Next: Inspect Detected Anomaly (Step 3)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -162,10 +162,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   setKillerDemoStep(4);
                   onNavigateTab('ai');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all hover:scale-105 cursor-pointer"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
-                <span>Next: Ask AI "Why?" (Change Fingerprint)</span>
+                <span>Next: Ask AI "Why?" (Step 4)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -176,10 +176,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   setKillerDemoStep(5);
                   onNavigateTab('ai');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all hover:scale-105 cursor-pointer"
               >
                 <ListOrdered className="w-3.5 h-3.5" />
-                <span>Next: "What Should We Do?" Directives</span>
+                <span>Next: View Action Plan (Step 5)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -190,10 +190,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   simulateHostelBIntervention();
                   onNavigateTab('simulator');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all hover:scale-105 cursor-pointer"
               >
                 <Sliders className="w-3.5 h-3.5" />
-                <span>Next: Simulate Intervention & ROI</span>
+                <span>Next: Simulate ROI &amp; Savings (Step 6)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -204,10 +204,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   verifyInterventionOutcome();
                   onNavigateTab('water');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all hover:scale-105 shadow-md shadow-emerald-950/50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all hover:scale-105 shadow-md shadow-emerald-950/50 cursor-pointer"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Next: Verify Closed-Loop Repair</span>
+                <span>Next: Verify Closed-Loop Repair (Step 7)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -218,10 +218,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                   setKillerDemoStep(8);
                   onNavigateTab('audit');
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all hover:scale-105 cursor-pointer"
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" />
-                <span>Next: Generate Official Audit Report</span>
+                <span>Next: View NAAC Audit Proof (Step 8)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -229,10 +229,10 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
             {killerDemoStep === 8 && (
               <button
                 onClick={resetDemo}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-all cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-                <span>Restart 8-Step Story</span>
+                <span>Restart Guided Tour</span>
               </button>
             )}
 
@@ -248,7 +248,7 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                       setKillerDemoStep(s.num);
                       onNavigateTab(s.tab);
                     }}
-                    className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold transition-all ${
+                    className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold transition-all cursor-pointer ${
                       isActive
                         ? 'bg-cyan-500 text-slate-950 shadow-sm shadow-cyan-500/50'
                         : isPast
@@ -262,9 +262,19 @@ export const KillerDemoStepper: React.FC<KillerDemoStepperProps> = ({
                 );
               })}
             </div>
+
+            {/* Close / Dismiss Tour Banner Button */}
+            <button
+              onClick={onToggle}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer text-xs"
+              title="Close tour banner (You can reopen anytime from top bar)"
+            >
+              ✕
+            </button>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
