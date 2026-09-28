@@ -20,7 +20,9 @@ import {
   Wrench,
   RotateCcw,
   Clock,
-  Database
+  Database,
+  Compass,
+  MapPin
 } from 'lucide-react';
 import { useCampus } from '../../context/CampusContext';
 import { ScoreGauge } from '../common/ScoreGauge';
@@ -127,56 +129,135 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Alert if Anomaly Present */}
-      {anomalies.length > 0 && (
-        <div className="bg-rose-950/80 border-2 border-rose-600/80 rounded-2xl p-4 shadow-xl shadow-rose-950/40 animate-pulse-ring">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-rose-600 text-white shadow-md">
-                <AlertTriangle className="w-6 h-6 animate-bounce" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-black uppercase px-2 py-0.5 rounded bg-rose-900 text-rose-200 border border-rose-700 tracking-wider">
-                    CRITICAL SUSTAINABILITY ANOMALY DETECTED
-                  </span>
-                  <span className="text-xs text-rose-300 font-mono">ID: {anomalies[0].id}</span>
-                </div>
-                <h3 className="text-base font-bold text-white mt-1">
-                  {anomalies[0].title} — {anomalies[0].nodeName}
-                </h3>
-                <p className="text-xs text-rose-200/90 max-w-3xl mt-0.5 leading-relaxed">
-                  {anomalies[0].description}
-                </p>
-              </div>
+      {/* 🌟 HUMAN-FRIENDLY EXECUTIVE STORYLINE: WHERE, WHAT, WHY & HOW */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-950 rounded-2xl p-5 border border-slate-700/80 shadow-2xl space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+          <div className="flex items-center gap-2.5">
+            <span className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              <Compass className="w-5 h-5" />
+            </span>
+            <div>
+              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">
+                Campus Executive Summary • GCE Kalahandi
+              </span>
+              <h2 className="text-base font-extrabold text-white">
+                Where We Stand, What Needs Attention, and How to Fix It
+              </h2>
             </div>
+          </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => {
-                  setKillerDemoStep(4);
-                  onNavigateTab('ai');
-                }}
-                className="px-3.5 py-2 rounded-xl bg-white text-rose-950 font-bold text-xs shadow-md hover:bg-rose-100 transition-all flex items-center gap-1.5 cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-rose-600" />
-                <span>Ask AI "Why?"</span>
-              </button>
-              <button
-                onClick={() => {
-                  setKillerDemoStep(6);
-                  simulateHostelBIntervention();
-                  onNavigateTab('simulator');
-                }}
-                className="px-3.5 py-2 rounded-xl bg-rose-800 hover:bg-rose-700 text-white font-bold text-xs border border-rose-600 transition-all flex items-center gap-1.5 cursor-pointer"
-              >
-                <Sliders className="w-3.5 h-3.5" />
-                <span>Simulate Fix</span>
-              </button>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono font-medium">
+              3,730 People • 9 Buildings
+            </span>
+            <button
+              onClick={() => onNavigateTab('twin')}
+              className="text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
+            >
+              <span>View Map</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* 3 Step Storyline Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          {/* Card 1: WHERE WE ARE */}
+          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between space-y-2">
+            <div>
+              <span className="text-[10px] font-mono text-slate-400 uppercase font-bold block">
+                1. Where We Stand (Overall Health)
+              </span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-3xl font-black text-white">{scores.compositeScore}</span>
+                <span className="text-xs font-semibold text-slate-400">/ 100</span>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
+                  scores.compositeScore >= 80 
+                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' 
+                    : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                }`}>
+                  {scores.compositeScore >= 80 ? 'Grade A (Target Met)' : 'Grade B'}
+                </span>
+              </div>
+              <p className="text-slate-300 mt-2 leading-relaxed">
+                Campus is outperforming in <strong>Energy (100)</strong> and <strong>Waste (74)</strong>. 
+                {isAnomalyActive 
+                  ? ' Water is currently suffering a -4.8 point drag from an active leak.' 
+                  : ' All 4 pillars are operating within healthy target bounds.'}
+              </p>
+            </div>
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+              <span>National Target: 85.0</span>
+              <span className="text-emerald-400 font-bold">✓ Met</span>
+            </div>
+          </div>
+
+          {/* Card 2: WHAT IS THE PROBLEM */}
+          <div className={`p-4 rounded-xl border flex flex-col justify-between space-y-2 ${
+            isAnomalyActive 
+              ? 'bg-rose-950/30 border-rose-600/60 shadow-lg shadow-rose-950/20' 
+              : 'bg-emerald-950/20 border-emerald-700/50'
+          }`}>
+            <div>
+              <span className={`text-[10px] font-mono uppercase font-bold block ${
+                isAnomalyActive ? 'text-rose-300' : 'text-emerald-300'
+              }`}>
+                2. Where The Problem Is (Active Alert)
+              </span>
+              <div className="flex items-center gap-2 mt-1">
+                <AlertTriangle className={`w-5 h-5 shrink-0 ${isAnomalyActive ? 'text-rose-400 animate-bounce' : 'text-emerald-400'}`} />
+                <span className="text-sm font-bold text-white">
+                  {isAnomalyActive ? 'Hostel B (Indravati Hall)' : 'Zero Active Leaks Detected'}
+                </span>
+              </div>
+              <p className="text-slate-300 mt-2 leading-relaxed">
+                {isAnomalyActive 
+                  ? '3,200 L/hr night-flow surge detected between 1:00 AM and 4:30 AM while students were asleep. Wasting 580,000 L/month.'
+                  : 'Hostel B pipe has been sealed. Ultrasonic flow meters confirm night flow returned to normal 140 L/hr.'}
+              </p>
+            </div>
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+              <span className="text-slate-400">{isAnomalyActive ? 'Financial Waste:' : 'Verified Savings:'}</span>
+              <span className={isAnomalyActive ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}>
+                {isAnomalyActive ? '₹18,400 / month' : '₹18,400 / month saved'}
+              </span>
+            </div>
+          </div>
+
+          {/* Card 3: HOW WE FIX IT */}
+          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between space-y-2">
+            <div>
+              <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">
+                3. How We Fix It (1-Click Action)
+              </span>
+              <div className="flex items-center gap-2 mt-1">
+                <Wrench className="w-4 h-4 text-cyan-400" />
+                <span className="text-sm font-bold text-white">Work Order #WO-409</span>
+              </div>
+              <p className="text-slate-300 mt-2 leading-relaxed">
+                Plumber Mohan Das replaces the damaged float valve on 2nd floor west-wing manifold.
+              </p>
+            </div>
+            
+            <div className="pt-2">
+              {isOutcomeVerified ? (
+                <div className="w-full py-2 px-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-center flex items-center justify-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Fix Verified: +4.8 pts &amp; Saved ₹18.4k</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => verifyInterventionOutcome()}
+                  className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-center transition-all hover:scale-[1.02] shadow-md shadow-emerald-950/40 flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Wrench className="w-3.5 h-3.5" />
+                  <span>👉 1-Click Fix &amp; Verify (+4.8 pts)</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Main Grid: Defensible GreenScore Card + 4 Pillar Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -292,11 +373,11 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
         <div className="lg:col-span-8 flex flex-col justify-between gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <MetricCard
-              title="Energy Efficiency"
+              title="1. Energy & Solar"
               category="energy"
               value="222,300"
               unit="kWh"
-              subValue="59.5 kWh / student (42.6% Solar Coverage)"
+              subValue="⚡ 59.5 kWh/student • 42.6% Clean Rooftop Solar"
               score={scores.energyScore}
               scoreDelta={+0.6}
               confidence={scores.categoryConfidence.energy}
@@ -306,13 +387,13 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
             />
 
             <MetricCard
-              title="Water Resource"
+              title="2. Water & Leaks"
               category="water"
               value={isAnomalyActive ? "9,130,000" : "8,420,000"}
               unit="Litres"
               subValue={isAnomalyActive 
-                ? "81.5 L/capita/day (Hostel B Surge: 188 L/day)" 
-                : "72.4 L/capita/day (Optimal baseline)"}
+                ? "💧 81.5 L/day • ⚠️ Hostel B Leak (3,200 L/hr)" 
+                : "💧 72.4 L/day • Optimal Baseline (No Leaks)"}
               score={scores.waterScore}
               scoreDelta={isAnomalyActive ? -14.0 : +2.5}
               confidence={scores.categoryConfidence.water}
@@ -323,11 +404,11 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
             />
 
             <MetricCard
-              title="Waste & Circularity"
+              title="3. Waste & Recycling"
               category="waste"
               value="7,320"
               unit="kg"
-              subValue="83.4% Waste Diversion Rate (Compost + Bio-gas)"
+              subValue="♻️ 83.4% Diverted to Compost & Biogas (Avoiding Landfill)"
               score={scores.wasteScore}
               scoreDelta={+0.8}
               confidence={scores.categoryConfidence.waste}
@@ -337,11 +418,11 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
             />
 
             <MetricCard
-              title="Mobility & Carbon"
+              title="4. Travel & Mobility"
               category="transport"
               value="976.0"
               unit="kg CO₂/day"
-              subValue="88% Active & Transit Mode Share (Walk/Cycle/Bus)"
+              subValue="🚲 88% Students & Staff Walk, Cycle, or Take Campus Bus"
               score={scores.transportScore}
               scoreDelta={+0.0}
               confidence={scores.categoryConfidence.transport}
@@ -405,6 +486,16 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ onNavigateTab, onS
               <span className="text-[10px] font-mono text-indigo-400 block font-bold">Transport</span>
               <span className="font-mono font-black text-slate-400">+0.0</span>
             </div>
+          </div>
+
+          {/* Plain English Summary Callout */}
+          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 flex items-start gap-2">
+            <span className="text-amber-400 font-bold shrink-0">💡 Plain English:</span>
+            <span>
+              {isAnomalyActive 
+                ? 'Campus made gains in Energy (+0.6) and Waste (+0.8), but took a -4.8 point drag solely due to the hidden toilet valve leak in Hostel B.'
+                : 'All 4 pillars are operating in equilibrium, maintaining an official A-Grade GreenScore of 85/100.'}
+            </span>
           </div>
 
           {/* Primary Driver */}

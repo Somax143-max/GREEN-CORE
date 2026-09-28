@@ -20,6 +20,7 @@ import { LiveTelemetryTerminal } from './components/features/LiveTelemetryTermin
 import { JudgePitchMode } from './components/features/JudgePitchMode';
 import { AntiGamingSandbox } from './components/features/AntiGamingSandbox';
 import { SustainabilityCertificateModal } from './components/features/SustainabilityCertificateModal';
+import { QuickGuideModal } from './components/modals/QuickGuideModal';
 import { CampusNode } from './types';
 
 const MainApp: React.FC = () => {
@@ -34,6 +35,7 @@ const MainApp: React.FC = () => {
   const [isPitchOpen, setIsPitchOpen] = useState<boolean>(false);
   const [isMethodologyOpen, setIsMethodologyOpen] = useState<boolean>(false);
   const [isCertificateOpen, setIsCertificateOpen] = useState<boolean>(false);
+  const [isQuickGuideOpen, setIsQuickGuideOpen] = useState<boolean>(false);
 
   const handleSelectNode = (nodeId: string) => {
     const found = nodes.find(n => n.id === nodeId);
@@ -52,6 +54,7 @@ const MainApp: React.FC = () => {
         onOpenTelemetry={() => setIsTelemetryOpen(true)}
         onOpenMethodology={() => setIsMethodologyOpen(true)}
         onOpenCertificate={() => setIsCertificateOpen(true)}
+        onOpenQuickGuide={() => setIsQuickGuideOpen(true)}
       />
 
       {/* Interactive 8-Step Killer Demo Banner */}
@@ -116,6 +119,11 @@ const MainApp: React.FC = () => {
       <SustainabilityCertificateModal
         isOpen={isCertificateOpen}
         onClose={() => setIsCertificateOpen(false)}
+      />
+      <QuickGuideModal
+        isOpen={isQuickGuideOpen}
+        onClose={() => setIsQuickGuideOpen(false)}
+        onNavigateToTab={tab => setActiveTab(tab as TabId)}
       />
 
       {/* Footer */}

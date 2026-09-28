@@ -77,27 +77,27 @@ export const DigitalTwin: React.FC<DigitalTwinProps> = ({ onSelectNode }) => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest">
-                Digital Twin Topology • GCEK
+              <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest font-bold">
+                Campus Spatial Map • GCEK
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
-                Live Telemetry Mesh
+              <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                9 Buildings Monitored
               </span>
             </div>
             <h2 className="text-xl font-black text-white mt-1">
-              Campus Physical-Digital Synchronizer
+              Interactive Campus Map &amp; Building Inspector
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Click any campus structure or use the category filters below to inspect real-time sub-metering, per-capita intensity, and spatial environmental states.
+            <p className="text-xs text-slate-300 mt-0.5">
+              Click any building below or on the spatial map to view its electricity use, water consumption, and green rating.
             </p>
           </div>
 
           <button
             onClick={handleSpotlightDeteriorator}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600/20 text-rose-300 border border-rose-600/50 text-xs font-bold hover:bg-rose-600/30 transition-all shrink-0"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600/20 text-rose-300 border border-rose-600/50 text-xs font-bold hover:bg-rose-600/30 transition-all shrink-0 cursor-pointer shadow-md"
           >
             <AlertTriangle className="w-4 h-4 text-rose-400 animate-bounce" />
-            <span>Spotlight Largest Hotspot (Hostel B)</span>
+            <span>⚠️ Jump to Hostel B (Active Leak)</span>
           </button>
         </div>
 

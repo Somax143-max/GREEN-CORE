@@ -34,23 +34,24 @@ interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }) => {
   const { anomalies } = useCampus();
 
-  const navItems: { id: TabId; label: string; icon: React.ReactNode; badge?: string; warningBadge?: boolean }[] = [
-    { id: 'command', label: '01 Command Center', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { id: 'twin', label: '02 Digital Twin', icon: <Boxes className="w-4 h-4" /> },
-    { id: 'energy', label: '03 Energy Intel', icon: <Zap className="w-4 h-4" /> },
+  const navItems: { id: TabId; label: string; icon: React.ReactNode; badge?: string; warningBadge?: boolean; hint: string }[] = [
+    { id: 'command', label: 'Overview', icon: <LayoutDashboard className="w-4 h-4" />, hint: 'Score, problem areas, and 1-click action' },
+    { id: 'twin', label: 'Campus Map', icon: <Boxes className="w-4 h-4" />, hint: 'Interactive 9-building spatial map' },
+    { id: 'energy', label: 'Energy', icon: <Zap className="w-4 h-4" />, hint: 'Electricity and rooftop solar' },
     { 
       id: 'water', 
-      label: '04 Water Intel', 
+      label: 'Water', 
       icon: <Droplets className="w-4 h-4" />, 
-      badge: anomalies.length > 0 ? `${anomalies.length} ALARM` : undefined,
-      warningBadge: anomalies.length > 0
+      badge: anomalies.length > 0 ? `⚠️ Leak Alert` : undefined,
+      warningBadge: anomalies.length > 0,
+      hint: 'Water consumption and Hostel B leak'
     },
-    { id: 'waste', label: '05 Waste & Circularity', icon: <Trash2 className="w-4 h-4" /> },
-    { id: 'mobility', label: '06 Mobility & Carbon', icon: <Bike className="w-4 h-4" /> },
-    { id: 'ai', label: '07 AI Insights', icon: <Sparkles className="w-4 h-4" />, badge: '5Q AI' },
-    { id: 'simulator', label: '08 Action Simulator', icon: <SlidersHorizontal className="w-4 h-4" /> },
-    { id: 'league', label: '09 Green League', icon: <Trophy className="w-4 h-4" /> },
-    { id: 'audit', label: '10 Audit & Evidence', icon: <FileCheck2 className="w-4 h-4" />, badge: 'Audit-Ready' },
+    { id: 'waste', label: 'Waste', icon: <Trash2 className="w-4 h-4" />, hint: 'Composting and landfill diversion' },
+    { id: 'mobility', label: 'Travel', icon: <Bike className="w-4 h-4" />, hint: 'Student walking, cycling, and buses' },
+    { id: 'ai', label: 'AI Diagnosis', icon: <Sparkles className="w-4 h-4" />, badge: 'Ask Why', hint: 'Natural language diagnostic assistant' },
+    { id: 'simulator', label: 'Fix Simulator', icon: <SlidersHorizontal className="w-4 h-4" />, hint: 'Simulate repairs, costs, and ROI' },
+    { id: 'league', label: 'Hostel League', icon: <Trophy className="w-4 h-4" />, hint: 'Student building competition' },
+    { id: 'audit', label: 'Audit Proof', icon: <FileCheck2 className="w-4 h-4" />, badge: 'NAAC 7.1.2', hint: 'Official certificates and SHA-256 ledger' },
   ];
 
   return (
@@ -62,6 +63,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
             <button
               key={item.id}
               onClick={() => onTabChange(item.id)}
+              title={item.hint}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all relative ${
                 isActive
                   ? 'bg-slate-800 text-white border border-slate-700 shadow-sm'

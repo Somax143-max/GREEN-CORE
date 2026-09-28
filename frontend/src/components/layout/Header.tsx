@@ -15,7 +15,8 @@ import {
   Trophy,
   Terminal,
   Award,
-  Sliders
+  Sliders,
+  HelpCircle
 } from 'lucide-react';
 import { useCampus } from '../../context/CampusContext';
 import { CampusMode } from '../../types';
@@ -28,6 +29,7 @@ interface HeaderProps {
   onOpenTelemetry: () => void;
   onOpenMethodology: () => void;
   onOpenCertificate: () => void;
+  onOpenQuickGuide: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
@@ -36,7 +38,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPitchMode,
   onOpenTelemetry,
   onOpenMethodology,
-  onOpenCertificate
+  onOpenCertificate,
+  onOpenQuickGuide
 }) => {
   const { 
     mode, 
@@ -170,6 +173,16 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             )}
           </div>
+
+          {/* Quick Guide: How It Works */}
+          <button
+            onClick={onOpenQuickGuide}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-md shadow-emerald-950/40 transition-all hover:scale-105 active:scale-95 cursor-pointer ring-1 ring-emerald-300"
+            title="Understand where, what, and how GREENCORE works in 30 seconds"
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>How It Works</span>
+          </button>
 
           {/* Manual Entry Button */}
           <button
